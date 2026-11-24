@@ -234,6 +234,7 @@ export const api = {
   getFleetSummary: () => apiClient.get<FleetKPIs>('/fleet/summary'),
   getMachines: (params?: { machine_type?: string; status_filter?: string }) =>
     apiClient.get<Machine[]>('/machines', { params }),
+  createMachine: (data: any) => apiClient.post<Machine>('/machines', data),
   getMachine: (id: string) => apiClient.get<Machine>(`/machines/${id}`),
   getMachineDigitalTwin: (id: string) => apiClient.get<any>(`/machines/${id}/digital-twin`),
   getTelemetryHistory: (id: string, limit = 50) =>

@@ -119,6 +119,40 @@ def list_machines(
         query = query.filter(Machine.status == status_filter)
     return query.order_by(Machine.machine_id).all()
 
+@app.post("/api/machines", response_model=MachineResponse)
+def create_machine(mach_in: MachineCreate, db: Session = Depends(get_db)):
+    existing = db.query(Machine).filter(Machine.machine_id == mach_in.machine_id).first()
+    if existing:
+        raise HTTPException(status_code=400, detail=f"Machine ID {mach_in.machine_id} already exists")
+    
+    machine = Machine(
+        machine_id=mach_in.machine_id,
+        name=mach_in.name,
+        machine_type=mach_in.machine_type,
+        model=mach_in.model,
+        year=mach_in.year,
+        status=mach_in.status,
+        operating_state=mach_in.operating_state,
+        health_score=mach_in.health_score,
+        total_operating_hours=mach_in.total_operating_hours,
+        location=mach_in.location,
+        image_url=mach_in.image_url
+    )
+    db.add(machine)
+    db.flush()
+
+    # Initialize digital twin telemetry and baseline prediction
+    sim = SimulationEngine(db)
+    sim.inject_telemetry_reading(
+        machine_id=mach_in.machine_id,
+        load_percentage=75.0,
+        is_missing=False,
+        is_noisy=False
+    )
+    db.commit()
+    db.refresh(machine)
+    return machine
+
 @app.get("/api/machines/{machine_id}", response_model=MachineResponse)
 def get_machine(machine_id: str, db: Session = Depends(get_db)):
     machine = db.query(Machine).filter(Machine.machine_id == machine_id).first()
