@@ -1,0 +1,61 @@
+{
+  "dataset_rows": 17280,
+  "fleet_machines": 24,
+  "train_machines": 18,
+  "test_machines": 6,
+  "validation_strategy": "Machine-Aware GroupKFold (Zero Data Leakage)",
+  "fault_detection": {
+    "accuracy": 0.9854,
+    "precision": 0.9393,
+    "recall": 0.9252,
+    "f1_score": 0.9322,
+    "confusion_matrix": [
+      [
+        3824,
+        28
+      ],
+      [
+        35,
+        433
+      ]
+    ]
+  },
+  "rul_regression": {
+    "mae_hours": 30.66,
+    "r2_score": 0.7192
+  },
+  "feature_importances": {
+    "engine_temp_imputed": 0.0775,
+    "vibration_imputed": 0.0824,
+    "rpm_imputed": 0.041,
+    "oil_pressure_imputed": 0.1574,
+    "hydraulic_pressure_imputed": 0.0432,
+    "temp_deviation_from_nominal": 0.1246,
+    "vib_ratio_to_nominal": 0.1227,
+    "oil_pressure_drop": 0.1642,
+    "hydraulic_pressure_drop": 0.0663,
+    "temp_to_ambient_ratio": 0.0181,
+    "load_percentage": 0.0063,
+    "operating_hours": 0.081,
+    "quality_score": 0.0084,
+    "is_missing_flag": 0.0013,
+    "is_noisy_flag": 0.0057
+  },
+  "features": [
+    "engine_temp_imputed",
+    "vibration_imputed",
+    "rpm_imputed",
+    "oil_pressure_imputed",
+    "hydraulic_pressure_imputed",
+    "temp_deviation_from_nominal",
+    "vib_ratio_to_nominal",
+    "oil_pressure_drop",
+    "hydraulic_pressure_drop",
+    "temp_to_ambient_ratio",
+    "load_percentage",
+    "operating_hours",
+    "quality_score",
+    "is_missing_flag",
+    "is_noisy_flag"
+  ]
+}
