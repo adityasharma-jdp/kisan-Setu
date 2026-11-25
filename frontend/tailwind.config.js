@@ -7,6 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        kisan: {
+          primary: '#245C38',
+          fresh: '#A8D94E',
+          dark: '#183B29',
+          cream: '#F8F7EF',
+          light: '#F5F7F1',
+          accent: '#E4F4C8',
+          darkest: '#0F261B',
+        },
         forest: {
           50: '#f0fdf4',
           100: '#dcfce7',
@@ -36,6 +45,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       }
     },

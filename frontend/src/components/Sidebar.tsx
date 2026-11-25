@@ -16,7 +16,10 @@ import {
   FileSpreadsheet,
   Settings,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  HeartPulse,
+  Sparkles,
+  Globe
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -26,9 +29,16 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ criticalAlertCount = 0 }) => {
   const navSections = [
     {
+      title: 'Public & Farmer Portal',
+      links: [
+        { to: '/', label: 'Agrovia Landing Page', icon: Globe, isPublic: true },
+        { to: '/farmer-portal', label: 'Farmer Health Passport', icon: HeartPulse, highlight: true },
+      ]
+    },
+    {
       title: 'Operations',
       links: [
-        { to: '/', label: 'Overview Dashboard', icon: LayoutDashboard },
+        { to: '/dashboard', label: 'Overview Dashboard', icon: LayoutDashboard },
         { to: '/fleet', label: 'Fleet Management', icon: Tractor },
         { to: '/twin', label: 'Digital Twin', icon: Cpu },
       ]
@@ -62,18 +72,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ criticalAlertCount = 0 }) => {
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col h-screen fixed left-0 top-0 z-30 select-none">
+    <aside className="w-64 bg-kisan-darkest border-r border-emerald-950/60 text-slate-300 flex flex-col h-screen fixed left-0 top-0 z-30 select-none">
       {/* Brand Header */}
-      <div className="h-16 flex items-center gap-3 px-5 border-b border-slate-800 bg-slate-950/40">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 ring-1 ring-white/20">
-          <Tractor className="w-5 h-5 text-slate-950 stroke-[2.5]" />
+      <div className="h-16 flex items-center gap-3 px-5 border-b border-emerald-900/40 bg-kisan-dark/50">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-kisan-primary to-kisan-fresh flex items-center justify-center shadow-lg shadow-kisan-fresh/20 ring-1 ring-white/20">
+          <Tractor className="w-5 h-5 text-kisan-dark stroke-[2.5]" />
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="font-bold text-base text-white tracking-tight">FarmPulse</span>
-            <span className="text-xs px-1.5 py-0.5 rounded font-mono font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">AI</span>
+            <span className="font-bold text-base text-white tracking-tight font-serif">KisanSetu</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold bg-kisan-fresh/20 text-kisan-fresh border border-kisan-fresh/30">AgriTech</span>
           </div>
-          <p className="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Fleet Twin v2.0</p>
+          <p className="text-[10px] text-emerald-300/80 font-medium tracking-wider uppercase">Predictive Twin v2.0</p>
         </div>
       </div>
 
@@ -90,12 +100,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ criticalAlertCount = 0 }) => {
                 <NavLink
                   key={link.to}
                   to={link.to}
+                  end={link.to === '/' || link.to === '/dashboard'}
                   className={({ isActive }) =>
                     `flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all group ${
                       isActive
-                        ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/30'
+                        ? 'bg-kisan-primary text-white shadow-md shadow-emerald-950/40'
                         : link.highlight
-                        ? 'text-emerald-400 hover:bg-emerald-950/40 hover:text-emerald-300'
+                        ? 'text-kisan-fresh hover:bg-emerald-950/40 hover:text-lime-300'
                         : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
                     }`
                   }
