@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import io
 import csv
 import random
+from contextlib import asynccontextmanager
 from typing import List, Optional, Dict, Any
 from fastapi import FastAPI, Depends, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,11 +39,19 @@ from backend.prioritization import MaintenancePrioritizationEngine
 from backend.simulation import SimulationEngine
 from ml.predictor import MaintenancePredictor
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Ensure tables and seed data exist at application start
+    Base.metadata.create_all(bind=engine)
+    seed_database()
+    yield
+
 # Initialize application
 app = FastAPI(
     title="FarmPulse AI - Fleet Maintenance Intelligence API",
     description="Predict Today. Prevent Downtime Tomorrow. Digital Twin & Predictive Maintenance Engine for Agricultural Machinery.",
-    version="2.0.0"
+    version="2.0.0",
+    lifespan=lifespan
 )
 
 # CORS configuration for frontend
@@ -53,12 +62,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Ensure tables and seed data exist at startup
-@app.on_event("startup")
-def startup_event():
-    Base.metadata.create_all(bind=engine)
-    seed_database()
 
 predictor = MaintenancePredictor()
 

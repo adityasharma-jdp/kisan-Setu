@@ -13,7 +13,8 @@ from backend.main import app
 
 @pytest.fixture(scope="module")
 def client():
-    return TestClient(app)
+    with TestClient(app) as test_client:
+        yield test_client
 
 def test_fleet_summary_kpis(client):
     res = client.get("/api/fleet/summary")

@@ -26,6 +26,7 @@ jobs:
           PYTHONPATH: .
         run: |
           python -m ml.train
+          python -m backend.seed
       - name: Run Pytest Test Suite
         env:
           PYTHONPATH: .
